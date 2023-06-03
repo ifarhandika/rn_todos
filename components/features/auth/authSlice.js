@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { logOutAction, loginAction } from "./authAction"
+import { logOutAction, loginAction, registerAction } from "./authAction"
 
 const initialState = {
   isError: false,
@@ -14,28 +14,45 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    resetState: () => initialState,
+  },
   extraReducers: (builder) => {
-    builder.addCase(loginAction.pending, (state) => {
+    //Register
+    builder.addCase(registerAction.pending, (state) => {
       state.isLoading = true
     })
-    builder.addCase(loginAction.fulfilled, (state, { payload }) => {
-      console.log("fulfilledpayload", payload)
+    builder.addCase(registerAction.fulfilled, (state, { payload }) => {
       state.isLoading = false
       state.isLoggedIn = true
       state.userInfo = payload
     })
-    builder.addCase(loginAction.rejected, (state, payload) => {
-      console.log("rejectedpayload", payload.error.message)
+    builder.addCase(registerAction.rejected, (state, payload) => {
       state.isLoading = false
       state.isError = true
       state.errMsg = payload.error.message
     })
 
+    //Login
+    builder.addCase(loginAction.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(loginAction.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+      state.isLoggedIn = true
+      state.userInfo = payload
+    })
+    builder.addCase(loginAction.rejected, (state, payload) => {
+      state.isLoading = false
+      state.isError = true
+      state.errMsg = payload.error.message
+    })
+
+    //Logout
     builder.addCase(logOutAction.pending, (state) => {
       state.isLoading = true
     })
-    builder.addCase(logOutAction.fulfilled, (state, { payload }) => {
+    builder.addCase(logOutAction.fulfilled, (state) => {
       state.isLoading = false
       state.isLoggedIn = false
       state.userInfo = null
@@ -46,22 +63,8 @@ const authSlice = createSlice({
       state.errMsg = payload.error.message
     })
   },
-  // {
-  //   [loginAction.pending]: (state) => {
-  //     state.isLoading = true
-  //   },
-  //   [loginAction.fulfilled]: (state, payload) => {
-  //     console.log("fulfilledpayload", payload)
-  //     state.isLoading = false
-  //     // state.userInfo = payload
-  //   },
-  //   [loginAction.rejected]: (state, { payload }) => {
-  //     console.log("rejectedpayload", payload)
-  //     state.isLoading = false
-  //     //   state.isError = paylo
-  //   },
-  // },
 })
 
-export const { loginUser } = authSlice.actions
+export const { resetState } = authSlice.actions
+
 export default authSlice.reducer
