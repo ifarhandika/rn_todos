@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import { COLORS } from "../../constants/theme"
 
 const styles = StyleSheet.create({
   container: {
@@ -6,21 +7,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 50,
   },
-  loading: {
-    position: "absolute",
-    zIndex: 1000,
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   text: {
     textAlign: "center",
   },
   textDesign: {
     color: "#50A060",
+  },
+  mainText: {
+    fontSize: 40,
+    fontWeight: "bold",
+  },
+  secondaryText: {
+    fontSize: 18,
+    fontWeight: "300",
+    color: COLORS.gray2,
+    marginHorizontal: 25,
+    marginBottom: 40,
   },
   logo: {
     width: "70%",

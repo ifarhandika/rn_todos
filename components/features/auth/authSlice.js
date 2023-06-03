@@ -45,7 +45,12 @@ const authSlice = createSlice({
     builder.addCase(loginAction.rejected, (state, payload) => {
       state.isLoading = false
       state.isError = true
-      state.errMsg = payload.error.message
+      if (payload.error.code === "auth/wrong-password") {
+        state.errMsg = "The email or password you have entered is incorrect"
+      }
+      if (payload.error.code === "auth/user-not-found") {
+        state.errMsg = "The account does not exist"
+      }
     })
 
     //Logout

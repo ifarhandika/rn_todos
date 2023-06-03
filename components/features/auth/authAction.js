@@ -7,7 +7,11 @@ export const registerAction = createAsyncThunk("register", async (data) => {
     .createUserWithEmailAndPassword(email, password)
     .then((userCredentials) => {
       const user = userCredentials.user
-      return user
+      let userInfo = {
+        email: user.email,
+        uid: user.uid,
+      }
+      return userInfo
     })
 
   return response
@@ -19,9 +23,13 @@ export const loginAction = createAsyncThunk("login", async (data) => {
     .signInWithEmailAndPassword(email, password)
     .then((userCredentials) => {
       const user = userCredentials.user
-      return user
+      let userInfo = {
+        email: user.email,
+        uid: user.uid,
+      }
+      return userInfo
     })
-  return response.email
+  return response
 })
 
 export const logOutAction = createAsyncThunk("logout", async () => {

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { resetState } from "../../components/features/auth/authSlice"
-import { View, Text, ActivityIndicator } from "react-native"
+import { View, Text } from "react-native"
 import { Link, StackActions } from "@react-navigation/native"
 import { loginAction } from "../../components/features/auth/authAction"
 import { validateLogin } from "./validation"
 
 import CustomInput from "../../components/common/input/CustomInput"
 import CustomBtn from "../../components/common/button/CustomBtn"
+import CustomLoading from "../../components/common/loading/CustomLoading"
 
 import styles from "./styles"
 
@@ -40,16 +41,17 @@ const LoginScreen = () => {
     dispatch(loginAction(userData))
   }
 
-  if (isLoading) {
-    return (
-      <View style={styles.loading}>
-        <ActivityIndicator size="large" />
-      </View>
-    )
-  }
+//   if (isLoading) {
+//     return <CustomLoading />
+//   }
 
   return (
     <View style={styles.container}>
+      <Text style={[styles.text, styles.mainText]}>Welcome!</Text>
+      <Text style={[styles.text, styles.secondaryText]}>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga,
+        expedita.
+      </Text>
       <CustomInput
         placeholder="Email"
         name="email"
@@ -71,7 +73,7 @@ const LoginScreen = () => {
         <Text style={styles.errMsg}>{error.password}</Text>
       )}
       {isError && <Text style={styles.errMsg}>{errMsg}</Text>}
-      <CustomBtn text={"Login"} onPress={handleLogin} />
+      <CustomBtn text={"Login"} onPress={handleLogin} type="main" />
       <Text style={styles.text}>
         Don't have an account?
         <Link
@@ -82,6 +84,7 @@ const LoginScreen = () => {
         </Link>
         now!
       </Text>
+      {isLoading && <CustomLoading />}
     </View>
   )
 }

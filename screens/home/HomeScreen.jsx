@@ -15,8 +15,8 @@ const HomeScreen = () => {
   return (
     <View>
       <Text>HomeScreen</Text>
-      <Text>Logged in as: {userInfo}</Text>
-      <CustomBtn text={"Log Out"} onPress={handleLogout} />
+      <Text>Logged in as: {userInfo.email}</Text>
+      <CustomBtn text={"Log Out"} onPress={handleLogout} type="main" />
     </View>
   )
 }

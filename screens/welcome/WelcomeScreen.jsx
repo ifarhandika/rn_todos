@@ -16,8 +16,12 @@ const WelcomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Image source={AppLogo} style={styles.logo} />
-      <CustomBtn text={"Login"} onPress={onLoginPressed} />
-      <CustomBtn text={"Register"} onPress={onRegisterPressed} />
+      <CustomBtn text={"Login"} type="main" onPress={onLoginPressed} />
+      <CustomBtn
+        text={"Register"}
+        type="secondary"
+        onPress={onRegisterPressed}
+      />
     </SafeAreaView>
   )
 }
