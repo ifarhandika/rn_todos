@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { ActivityIndicator, Text, View } from "react-native"
-import { Link } from "@react-navigation/native"
+import { Link, StackActions } from "@react-navigation/native"
 
 import CustomInput from "../../components/common/input/CustomInput"
 import CustomBtn from "../../components/common/button/CustomBtn"
@@ -9,6 +9,7 @@ import CustomBtn from "../../components/common/button/CustomBtn"
 import styles from "./styles"
 import { registerAction } from "../../components/features/auth/authAction"
 import { validateRegister } from "./validation"
+import { resetState } from "../../components/features/auth/authSlice"
 
 const RegisterScreen = () => {
   const dispatch = useDispatch()
@@ -21,7 +22,11 @@ const RegisterScreen = () => {
       status: false,
     },
   })
-  const { error } = userData
+  const { email, password, error } = userData
+
+  useEffect(() => {
+    dispatch(resetState())
+  }, [email, password])
 
   const handleChange = (text, name) => {
     setUserData({
@@ -69,7 +74,10 @@ const RegisterScreen = () => {
       <CustomBtn text={"Register"} onPress={handleSubmit} />
       <Text style={styles.text}>
         Already have an account?
-        <Link to={{ screen: "Login" }} style={styles.textDesign}>
+        <Link
+          to={{ screen: "Login" }}
+          action={StackActions.replace("Login")}
+          style={styles.textDesign}>
           <Text> Log In </Text>
         </Link>
         now!

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { resetState } from "../../components/features/auth/authSlice"
 import { View, Text, ActivityIndicator } from "react-native"
-import { Link } from "@react-navigation/native"
+import { Link, StackActions } from "@react-navigation/native"
 import { loginAction } from "../../components/features/auth/authAction"
 import { validateLogin } from "./validation"
 
@@ -26,7 +26,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     dispatch(resetState())
-  }, [])
+  }, [email, password])
 
   const handleChange = (text, name) => {
     setUserData({
@@ -74,7 +74,10 @@ const LoginScreen = () => {
       <CustomBtn text={"Login"} onPress={handleLogin} />
       <Text style={styles.text}>
         Don't have an account?
-        <Link to={{ screen: "Register" }} style={styles.textDesign}>
+        <Link
+          to={{ screen: "Register" }}
+          action={StackActions.replace("Register")}
+          style={styles.textDesign}>
           <Text> Register </Text>
         </Link>
         now!
